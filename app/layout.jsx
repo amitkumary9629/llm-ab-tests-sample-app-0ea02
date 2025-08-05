@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
+import { VWOScript } from 'vwo-smartcode-nextjs';
 
 export const metadata = {
     title: {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
+                 <VWOScript accountId="1126797" />
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body className="antialiased text-white bg-blue-900">
