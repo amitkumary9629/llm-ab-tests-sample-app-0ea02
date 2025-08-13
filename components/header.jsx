@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import netlifyLogo from 'public/netlify-logo.svg';
 import githubLogo from 'public/images/github-mark-white.svg';
+import getOptimizelyClient from '../app/optimizely.js';
 
 const navItems = [
     { linkText: 'Home', href: '/' },
@@ -12,7 +13,29 @@ const navItems = [
     { linkText: 'Classics', href: '/classics' }
 ];
 
+const optimizelyClient = getOptimizelyClient();
+
 export function Header() {
+    const [variation, setVariation] = useState(null);
+
+    useEffect(() => {
+        optimizelyClient.onReady().then(() => {
+            const userId = 'user_' + Math.floor(Math.random() * 1000000); // unique per user/session
+            const variationKey = optimizelyClient.activate('button_color_difference', userId);
+
+            setVariation(variationKey);
+        });
+    }, []);
+
+    function getVariations() {
+        return (
+            <div>
+                {variation === 'off' && <h1>Revalidation</h1>}
+                {variation === 'on' && <h1>Revalidation2</h1>}
+            </div>
+        );
+    }
+
     return (
         <nav className="flex flex-wrap items-center gap-4 pt-6 pb-12 sm:pt-12 md:pb-24">
             <Link href="/">
@@ -23,7 +46,7 @@ export function Header() {
                     {navItems.map((item, index) => (
                         <li key={index}>
                             <Link href={item.href} className="inline-flex px-1.5 py-1 sm:px-3 sm:py-2">
-                                {item.linkText}
+                                {item.linkText === 'Revalidation' ? getVariations() : item.linkText}
                             </Link>
                         </li>
                     ))}
