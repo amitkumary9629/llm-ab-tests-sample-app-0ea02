@@ -1,7 +1,8 @@
 import { revalidateTag } from 'next/cache';
 import { Card } from 'components/card';
 import { Markdown } from 'components/markdown';
-import { SubmitButton } from 'components/submit-button';
+import { RevalidateButton } from 'components/revalidate-button';
+import VwoContextProvider from 'components/providers';
 
 export const metadata = {
     title: 'On-Demand Revalidation'
@@ -45,12 +46,14 @@ export default async function Page() {
 
     return (
         <>
-            <h1 className="mb-8">Revalidation Basics</h1>
-            <Markdown content={explainer} className="mb-6" />
-            <form className="mb-8" action={revalidateWiki}>
-                <SubmitButton text="Click to Revalidate" />
-            </form>
-            <RandomWikiArticle />
+            <VwoContextProvider>
+                <h1 className="mb-8">Revalidation Basics</h1>
+                <Markdown content={explainer} className="mb-6" />
+                {/* <form className="mb-8" action={revalidateWiki}> */}
+                <RevalidateButton revalidateWiki={revalidateWiki} />
+                {/* </form> */}
+                <RandomWikiArticle />
+            </VwoContextProvider>
         </>
     );
 }
