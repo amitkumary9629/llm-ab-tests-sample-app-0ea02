@@ -8,10 +8,6 @@ export function RevalidateButton({ revalidateWiki }) {
 
     const revalidateButtonFeatureFlag = useGetFlag('revalidateButtonFeatureFlag');
 
-    if (!revalidateButtonFeatureFlag.flag.isEnabled()) {
-        return;
-    }
-
     const variationName = useGetFlagVariable(revalidateButtonFeatureFlag.flag, 'RevalidateButton', '');
 
     function revalidatePage() {
