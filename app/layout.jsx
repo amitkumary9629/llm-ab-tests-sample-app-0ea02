@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-                 <VWOScript accountId="1126797" />
+                <VWOScript accountId="1132425" />
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body className="antialiased text-white bg-blue-900">
